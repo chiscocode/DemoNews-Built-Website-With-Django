@@ -1,0 +1,269 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% load hitcount_tags %}
+<!-- PAGE HEADER -->
+
+<div id="post-header" class="page-header">
+    <div class="page-header-bg">
+        <div class="">
+            <img src="{{post.photo.url}}" alt="" class="img-responsive" style="max-width: 400px; max-height: 400px;">
+            
+        </div>
+    </div>
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-md-10">
+                <div class="post-category">
+                    <!-- <a href="#">{{post.category}}</a> -->
+                </div>
+                <!-- <h1>{{post.title}}</h1> -->
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /PAGE HEADER -->
+
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-8">
+                <!-- post share -->
+                <div class="section-row">
+                    <div class="post-share">
+                        <a href="https://www.facebook.com/orhuerakpor.ruky" class="social-facebook"><i class="fa fa-facebook"></i><span>Follow Us</span></a>
+                        
+                        
+                    </div>
+                </div>
+                <!-- /post share -->
+
+                <!-- post content -->
+                <div class="section-row">
+                    <h3>{{post.title}}</h3>
+                    <ul class="post-meta">
+                        <li>{% get_hit_count for post %} views</li>
+                        <li>{{post.date_added}}</li>
+                        
+                    </ul>
+                    {{post.description | safe}}
+                    
+                </div>
+                <!-- /post content -->
+
+                <!-- post tags -->
+                <div class="section-row">
+                    <div class="post-tags">
+                        <ul>
+                            <li>TAGS:</li>
+                            <li><a href="{% url 'postdetails' 'post.slug' %}">{{post.category}}</a></li>
+                            
+                        </ul>
+                    </div>
+                </div>
+                <!-- /post tags -->
+
+                <!-- post nav -->
+                
+
+                
+
+                <!-- /related post -->
+                <div>
+                    <div class="section-title">
+                        <h3 class="title">Related Posts</h3>
+                    </div>
+                    {% if similar_posts %}
+                    <div class="row">
+                        <!-- post -->
+                        {% for post in similar_posts %}
+                            
+                        <div class="col-md-4">
+                            <div class="post post-sm">
+                                <a class="post-img" href="{% url 'postdetails' post.slug %}">
+                                <img src="{{post.photo.url}}" alt="" class="img-responsive">
+                                </a>
+                                <div class="post-body">
+                                    <div class="post-category">
+                                        <a href="{% url 'postdetails' post.slug %}">{{post.title}}</a>
+                                    </div>
+                                    <h3 class="post-title title-sm"><a href="{% url 'postdetails' post.slug %}">{{post.description| safe | slice:":50" }}</a></h3>
+                                    <ul class="post-meta">
+                                        <li>{% get_hit_count for post %} views</li>
+                                        <li>{{main.date_added}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                    
+
+                    {% endif %}
+                        <!-- /post -->
+
+                        <!-- post -->
+                        
+                        <!-- /post -->
+
+                        <!-- post -->
+                        
+                        <!-- /post -->
+                    </div>
+                </div>
+                <!-- /related post -->
+
+                <!-- post comments -->
+                <div class="section-row">
+                    
+                </div>
+                <!-- /post comments -->
+
+                <!-- post reply -->
+                <div class="section-row">
+                    <div class="section-title">
+                        <h3 class="title">Leave a reply</h3>
+                    </div>
+                    <form method="POST" class="post-reply">
+                        <div class="row">
+                            <div class="">
+                            
+                                {% csrf_token %}
+                                <div class="col-md-4 mt-4">
+                                    <div class="form-group">
+										{{form.name}}
+									</div>
+                                
+                                </div>
+                                                                
+                                <div class="col-md-4 mt-4">
+                                    <div class="form-group">
+										{{form.body}}
+									</div>
+                                </div> 
+                                <div class="row">
+                                <div class="col-md-4">
+									<button class="primary-button">Submit</button>
+								</div>
+                            </div>
+                            
+                            </div>
+
+                        </div>
+                    </form>
+                    <div class="section-title">
+                        <h3 class="title">Comments</h3>
+                    </div>
+                    <div class="post-comments">
+                        <!-- comment -->
+                        <div class="media">
+                            <div class="media-body">
+                            {% for comment in commenting %}
+
+                                <div class="media-heading">
+                                    <h4>{{comment.name}}</h4>
+                                    <span class="time">{{comment.date_added}}</span>
+                                </div>
+                                <p>{{comment.body}}
+                            
+                                </p> 
+                            {% endfor %}
+
+                            </div>
+
+                        </div>
+                        <!-- /comment -->
+
+                       
+                    </div>
+
+                </div>
+                <!-- /post reply -->
+            </div>
+            
+            <div class="col-md-6">
+                <!-- ad widget -->
+                {% for adverts in advertthreepaginator %}
+                <!-- ad widget-->
+                <div class="aside-widget text-center">
+                    <a href="https://{{adverts.links}}"target="_blank" style="display: inline-block;margin: auto;">
+                        <div class="img-responsive">
+                            <img src="{{adverts.photo.url}}" alt="advert1" class="img-responsive" style="width: 400px; height: 300px;">
+                        </div>
+                    </a>
+                </div>
+                <!-- /ad widget -->
+                {% endfor %}
+                <!-- /ad widget -->
+            </div>
+            
+                
+            <div class="col-md-6">
+
+                <!-- category widget -->
+                <div class="aside-widget">
+                    <div class="section-title">
+                        <h2 class="title">Categories</h2>
+                    </div>
+                    <div class="category-widget">
+                        <ul>
+                            {% for category in categorys %}
+                            <li><a href="{% url 'category' category.slug %}">{{category.title}}</a></li>
+                            {% endfor %}
+                            
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+                
+                <!-- /category widget -->
+            <div class="col-md-6">
+                <!-- newsletter widget -->
+                <div class="aside-widget">
+                    <div class="section-title">
+                        <h2 class="title">Newsletter</h2>
+                    </div>
+                    <div class="newsletter-widget">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <p>Subscribe to our Newsletter.</p>
+                            <input class="input" name="email" type="email" required="required" placeholder="Enter Your Email">
+                            <button class="primary-button">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- /newsletter widget -->
+            </div>
+                
+
+                
+            <div class="col-md-6">
+                {% for adverts in advertonepaginator %}
+                <!-- ad widget-->
+                <div class="aside-widget text-center">
+                    <a href="https://{{adverts.links}}"target="_blank" style="display: inline-block;margin: auto;">
+                        <div class="img-responsive">
+                            <img src="{{adverts.photo.url}}" alt="advert1" class="img-responsive" style="width: 400px; height: 300px;">
+                        </div>
+                    </a>
+                </div>
+                <!-- /ad widget -->
+                {% endfor %}
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+
+
+
+    
+{% endblock content %}
+    

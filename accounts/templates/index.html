@@ -1,0 +1,490 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% load hitcount_tags %}
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div id="hot-post" class="row hot-post">
+            
+            {% for main in mainpost %}
+        
+            <div class="col-md-8 hot-post-left">
+                <!-- post -->
+                <div class="post post-thumb">
+                    <a class="post-img" href="{% url 'mainpostdetails' main.slug %}">
+                        <img src="{{main.photo.url}}" alt="" class="img-responsive"></a>
+                    <div class="post-body">
+                        <div class="post-category">
+                            <a href="{% url 'mainpostdetails' main.slug %}">{{main.category}}</a>
+                        </div>
+                        <h2 class="post-title title-lg"><a href="{% url 'mainpostdetails' main.slug %}">{{main.title}}</a></h2>
+                        <ul class="post-meta">
+                            <li>{% get_hit_count for main %} views</li>
+                            <li>{{main.date_added}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /post -->
+            </div>
+            {% endfor %}
+            {% for main in featuredpost %}
+            <div class="col-md-4 hot-post-right">
+                <!-- post -->
+                <div class="post post-thumb">
+                    <a class="post-img" href="{% url 'featureddetails' main.slug %}">
+                        <img src="{{main.photo.url}}" alt="" class="img-responsive"></a>
+                    <div class="post-body">
+                        <div class="post-category">
+                            <a href="{% url 'featureddetails' main.slug %}">{{main.category}}</a>
+                        </div>
+                        <h2 class="post-title title-lg"><a href="{% url 'featureddetails' main.slug %}">{{main.title}}</a></h2>
+                        <ul class="post-meta">
+                            <li>{% get_hit_count for main %} views</li>
+                            <li>{{main.date_added}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /post -->
+
+                
+            </div>
+           {% endfor %}
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+
+
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-8">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title">
+                            <h2 class="title">Recent posts</h2>
+                        </div>
+                    </div>
+                    <!-- post -->
+            {% for main in posts %}
+
+                    <div class="col-md-6">
+                        <div class="post">
+                            <a class="post-img" href="{% url 'postdetails' main.slug %}">
+                                <img src="{{main.photo.url}}" alt="" class="img-responsive">
+                            </a>
+                            <div class="post-body">
+                                <div class="post-category">
+                                    <a href="{% url 'postdetails' main.slug %}">{{main.title}}</a>
+                                </div>
+                                
+                                <ul class="post-meta">
+                                    <li>{% get_hit_count for main %} views</li>
+                                    <li>{{main.date_added}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /post -->
+
+                    {% endfor %}
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% if posts.has_other_pages %}
+                            <ul class="pagination">
+                                {% if posts.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page={{posts.previous_page_number}}">Previous</a></li>
+                                {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link">Previous</a>
+                                  </li>
+                                {% endif %}
+                                {% for i in posts.paginator.page_range %}
+                                  {% if posts.number == i %}
+                                    <li class="page-item active">
+                                      <a class="page-link">{{i}}</a>
+                                    </li>
+                                  {% else %}
+                                    <li class="page-item">
+                                      <a href="?page={{i}}" class="page-link">{{i}}</a>
+                                    </li>
+                                  {% endif %}
+                                {% endfor %}
+                                {% if posts.has_next %}
+                                  <li class="page-item">
+                                    <a href="?page={{posts.next_page_number}}" class="page-link">Next</a>
+                                  </li>
+                                {% else %}
+                                  <li class="page-item disabled">
+                                    <a class="page-link">Next</a>
+                                  </li>
+                                {% endif %}
+                              </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="clearfix visible-md visible-lg"></div>
+
+                    <!-- post -->
+                    
+                    <!-- /post -->
+
+                    <!-- post -->
+                    
+                    <!-- /post -->
+                </div>
+                <!-- /row -->
+
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title">
+                            <h2 class="title">Politics</h2>
+                        </div>
+                    </div>
+                    <!-- post -->
+                    
+                    {% for cat in politics %}
+                        
+                        
+                    <div class="col-md-4">
+                        <div class="post post-sm">
+                            <a class="post-img" href="{% url 'postdetails' cat.slug %}">
+                                <img src="{{cat.photo.url}}" alt="" class="img-responsive">
+                            </a>
+                            <div class="post-body">
+                                <div class="post-category">
+                                    <a href="{% url 'postdetails' cat.slug %}">{{cat.title}}</a>
+                                </div>
+                                
+                                <ul class="post-meta">
+                                    <li>{% get_hit_count for cat %} views</li>
+                                    <li>{{cat.date_added}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% if politics.has_other_pages %}
+                            <ul class="pagination">
+                                {% if politics.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page={{politics.previous_page_number}}">Previous</a></li>
+                                {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link">Previous</a>
+                                  </li>
+                                {% endif %}
+                                {% for i in politics.paginator.page_range %}
+                                  {% if politics.number == i %}
+                                    <li class="page-item active">
+                                      <a class="page-link">{{i}}</a>
+                                    </li>
+                                  {% else %}
+                                    <li class="page-item">
+                                      <a href="?page={{i}}" class="page-link">{{i}}</a>
+                                    </li>
+                                  {% endif %}
+                                {% endfor %}
+                                {% if politics.has_next %}
+                                  <li class="page-item">
+                                    <a href="?page={{politics.next_page_number}}" class="page-link">Next</a>
+                                  </li>
+                                {% else %}
+                                  <li class="page-item disabled">
+                                    <a class="page-link">Next</a>
+                                  </li>
+                                {% endif %}
+                              </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- /post -->
+
+                    
+
+                    
+                </div>
+                <!-- /row -->
+
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title">
+                            <h2 class="title">Sports</h2>
+                        </div>
+                    </div>
+                    <!-- post -->
+                    {% for sport in sports %}
+                        
+                        
+                    <div class="col-md-4">
+                        <div class="post post-sm">
+                            <a class="post-img" href="{% url 'postdetails' sport.slug %}">
+                                <img src="{{sport.photo.url}}" alt="" class="img-responsive">
+                            </a>
+                            <div class="post-body">
+                                <div class="post-category">
+                                    <a href="{% url 'postdetails' sport.slug %}">{{sport.title}}</a>
+                                </div>
+                                
+                                <ul class="post-meta">
+                                    <li>{% get_hit_count for sport %} views</li>
+                                    <li>{{sport.date_added}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+                    <!-- /post -->
+
+                    
+                </div>
+                <!-- /row -->
+
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title">
+                            <h2 class="title">Business and Economics</h2>
+                        </div>
+                    </div>
+                    <!-- post -->
+                    {% for cat in businesss %}
+                        
+                        
+                    <div class="col-md-4">
+                        <div class="post post-sm">
+                            <a class="post-img" href="{% url 'postdetails' cat.slug %}">
+                                <img src="{{cat.photo.url}}" alt="" class="img-responsive">
+                            </a>
+                            <div class="post-body">
+                                <div class="post-category">
+                                    <a href="{% url 'postdetails' cat.slug %}">{{cat.title}}</a>
+                                </div>
+                                
+                                <ul class="post-meta">
+                                    <li>{% get_hit_count for cat %} views</li>
+                                    <li>{{cat.date_added}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% if businesss.has_other_pages %}
+                            <ul class="pagination">
+                                {% if businesss.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page={{businesss.previous_page_number}}">Previous</a></li>
+                                {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link">Previous</a>
+                                  </li>
+                                {% endif %}
+                                {% for i in businesss.paginator.page_range %}
+                                  {% if businesss.number == i %}
+                                    <li class="page-item active">
+                                      <a class="page-link">{{i}}</a>
+                                    </li>
+                                  {% else %}
+                                    <li class="page-item">
+                                      <a href="?page={{i}}" class="page-link">{{i}}</a>
+                                    </li>
+                                  {% endif %}
+                                {% endfor %}
+                                {% if businesss.has_next %}
+                                  <li class="page-item">
+                                    <a href="?page={{businesss.next_page_number}}" class="page-link">Next</a>
+                                  </li>
+                                {% else %}
+                                  <li class="page-item disabled">
+                                    <a class="page-link">Next</a>
+                                  </li>
+                                {% endif %}
+                              </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- /post -->
+
+                    
+                </div>
+                <!-- /row -->
+            </div>
+            
+                
+            
+                
+            <div class="col-md-4">
+            {% for adverts in advertthreepaginator %}
+                <!-- ad widget-->
+                <div class="aside-widget text-center">
+                    <a href="https://{{adverts.links}}"target="_blank" style="display: inline-block;margin: auto;">
+                        <div class="img-responsive">
+                            <img src="{{adverts.photo.url}}" alt="advert1" class="img-responsive" style="width: 400px; height: 300px;">
+                        </div>
+                    </a>
+                </div>
+                <!-- /ad widget -->
+                {% endfor %}
+
+                <!-- social widget -->
+                <div class="aside-widget">
+                    <div class="section-title">
+                        <h2 class="title">Social Media</h2>
+                    </div>
+                    <div class="social-widget">
+                        <ul>
+                            <li>
+                                <a href="https://www.facebook.com/orhuerakpor.ruky" class="social-facebook">
+                                    <i class="fa fa-facebook"></i>
+                                    <span>Follow Us</span>
+                                </a>
+                            </li>
+                            
+                            
+                        </ul>
+                    </div>
+                </div>
+                <!-- /social widget -->
+
+                <!-- category widget -->
+                <div class="aside-widget">
+                    <div class="section-title">
+                        <h2 class="title">Categories</h2>
+                    </div>
+                    <div class="category-widget">
+                        <ul>
+                            {% for category in main_categories %}
+                                <li><a href="{% url 'category' category.slug %}">{{category.title}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <!-- /category widget -->
+
+                <!-- newsletter widget -->
+                <div class="aside-widget">
+                    <div class="section-title">
+                        <h2 class="title">Newsletter</h2>
+                    </div>
+                    <div class="newsletter-widget">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <p>Subscribe to our Newsletter.</p>
+                            <input class="input" name="email" type="email" required="required" placeholder="Enter Your Email">
+                            <button class="primary-button">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- /newsletter widget -->
+
+                
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+
+
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h2 class="title">Entertainment</h2>
+                </div>
+            </div>
+            {% for cat in entertainments %}
+
+            <div class="col-md-8">
+                <!-- post -->
+                <div class="post post-row">
+                    <a class="post-img" href="{% url 'postdetails' cat.slug %}">
+                        <img src="{{cat.photo.url}}" alt="" class="img-responsive">
+                    </a>
+                    <div class="post-body">
+                        <div class="post-category">
+                            <a href="{% url 'postdetails' cat.slug %}">Entertainment</a>
+                            
+                        </div>
+                        
+                        <ul class="post-meta">
+                            <li>{% get_hit_count for cat %} views</li>
+                            <li>{{cat.date_added}}</li>
+                        </ul>
+                        <p>{{cat.title|safe}}</p>
+                    </div>
+                </div>
+                <!-- /post -->
+            </div>
+            {% endfor %}
+            
+
+
+            <div class="col-md-4">
+                <!-- galery widget -->
+                <div class="aside-widget">
+                    <!-- <div class="section-title">
+                        <h2 class="title">Galary</h2>
+                    </div> -->
+                    {% for adverts in advertonepaginator %}
+                <!-- ad widget-->
+                <div class="aside-widget text-center">
+                    <a href="https://{{adverts.links}}"target="_blank" style="display: inline-block;margin: auto;">
+                        <div class="img-responsive">
+                            <img src="{{adverts.photo.url}}" alt="advert1" class="img-responsive" style="width: 400px; height: 300px;">
+                        </div>
+                    </a>
+                </div>
+                <!-- /ad widget -->
+                {% endfor %}
+                </div>
+                <!-- /galery widget -->
+
+                <!-- Ad widget -->
+                
+
+                
+                <!-- /Ad widget -->
+            </div>
+            
+        </div>
+        
+            
+        
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+    
+{% endblock content %}
+    

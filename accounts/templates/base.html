@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-P7KJD5P');</script>
+        <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="demo news ">
+    <meta name="author" content="Patrick Chukwudifu">
+    <meta name="generator" content="HubSpot">
+    <title>demo News</title>
+
+    <meta name="description" content="demoNews24 is a daily News publication In Nigeria covering Latest news, Breaking News, Politics, Relationships, Entertaiment, Business and Sports">
+    <meta property="og:url" content="https://www.demonews24.com/">
+    <meta property="og:site_name" content="demo News">
+
+    
+    <!-- Favicon-->
+    <link rel="icon" href="{% static 'img/logo.jpg' %}" type="image/x-icon" />
+    <!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CMuli:400,700" rel="stylesheet">
+
+	<!-- Bootstrap -->
+	<link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+
+	<!-- Font Awesome Icon -->
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+
+	<!-- Custom stlylesheet -->
+	<link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+   
+    
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P7KJD5P"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
+            {% include 'navbar.html' %}
+
+            <!-- demo carousel -->
+
+            
+
+            <!-- end of demo carousel -->
+            <div class="container">
+            {% block content %}
+                
+            {% endblock content %}
+            </div>
+            {% include 'footer.html' %}
+                
+
+
+
+   <!-- jQuery Plugins -->
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>    
+    
+    <script src="https://unpkg.com/htmx.org@1.7.0"></script>
+    <script>
+        document.body.addEventListener('htmx:configRequest', (e) => {
+          e.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+          })
+      </script>
+</body>
+</html>
