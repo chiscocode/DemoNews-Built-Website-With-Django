@@ -72,7 +72,7 @@ python manage.py runserver
 <br/>
 <div align="center">
   Customer Home<br/>
- <img src="screenshot.PNG" width="600px" height="600px"</img> 
+ <img src="screenshot.PNG" width="800px"</img> 
 
 </div>
 
